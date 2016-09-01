@@ -50,5 +50,4 @@ public class Pilha implements IPilha{
     public Object recuperarTopo() {
         return topo.getObj();
     }
-    
 }
