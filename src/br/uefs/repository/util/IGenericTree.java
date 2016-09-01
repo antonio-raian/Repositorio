@@ -21,6 +21,5 @@ public interface IGenericTree{
     public void remove(Celula celula);
     public int size();
     public int height (Celula celula);
-    public Iterador iterator();
-    
+    public Iterador iterator();   
 }
