@@ -1,0 +1,9 @@
+package br.uefs.repository.util;
+
+public interface Iterador {
+	
+	public boolean temProximo();
+
+	public Object obterProximo();
+
+}
