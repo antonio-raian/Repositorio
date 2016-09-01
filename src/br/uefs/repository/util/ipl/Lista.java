@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uefs.repository.util;
+package br.uefs.repository.util.ipl;
 
 import br.uefs.repository.model.Celula;
+import br.uefs.repository.util.ILista;
+import br.uefs.repository.util.Iterador;
 
 /**
  *

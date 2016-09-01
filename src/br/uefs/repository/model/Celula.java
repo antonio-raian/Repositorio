@@ -6,8 +6,7 @@
 package br.uefs.repository.model;
 
 import br.uefs.repository.util.Iterador;
-import br.uefs.repository.util.Lista;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import br.uefs.repository.util.ipl.Lista;
 
 /**
  *
