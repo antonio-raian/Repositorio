@@ -29,7 +29,7 @@ public class IteradorLista implements Iterador{
     public Object obterProximo() {
         Celula c = cel;
         if(cel!=null){
-            cel = cel.getIrmao();
+            cel = cel.getProx();
         }
         return c.getObj();
     }

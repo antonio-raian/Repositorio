@@ -9,6 +9,7 @@ import br.uefs.repository.model.Celula;
 import br.uefs.repository.util.ILista;
 import br.uefs.repository.util.Iterador;
 
+
 /**
  *
  * @author Antonio
@@ -32,10 +33,10 @@ public class Lista implements ILista{
         Celula aux = new Celula(o);
         if(estaVazia()){
             primeiro= ultimo = aux; //Faz com que a o primeiro e o ultimo sejam a mesma célula
-            primeiro.setIrmao(ultimo);
+            primeiro.setProx(ultimo);
         }else{
             //faz a troca do primeiro pela nova célula que está sendo inserida
-            aux.setIrmao(primeiro);
+            aux.setProx(primeiro);
             primeiro = aux;
         }
         tam++; //aumenta o tamanha da lista
@@ -46,11 +47,11 @@ public class Lista implements ILista{
         Celula aux = new Celula(o);
         if(estaVazia()){
             primeiro = ultimo = aux; //Faz com que a o primeiro e o ultimo sejam a mesma célula
-            primeiro.setIrmao(null);
+            primeiro.setProx(null);
         }else{ 
             //faz a troca do ultimo pela nova célula que está sendo inserida
-            aux.setIrmao(null);
-            ultimo.setIrmao(aux);
+            aux.setProx(null);
+            ultimo.setProx(aux);
             ultimo = aux;
         }
         tam++; //aumenta o tamanha da lista
@@ -66,11 +67,11 @@ public class Lista implements ILista{
             do{ //percorre a lista até encontrar a posição desejada
                 if(i == (index-1)){
                     //insere a celula na posição desejada
-                    nova.setIrmao(aux.getIrmao());
-                    aux.setIrmao(nova);
+                    nova.setProx(aux.getProx());
+                    aux.setProx(nova);
                     break;
                 }
-                aux = aux.getIrmao();
+                aux = aux.getProx();
                 i++;
             }while(aux!=null);
         }else if(index==tam){ //verifica se é na ultima posição
@@ -83,7 +84,7 @@ public class Lista implements ILista{
     public Object removerInicio() { //Remove a cabeça da lista
         Object o = primeiro.getObj();
         if(!estaVazia()){ //verifica se tem celulas
-            primeiro = primeiro.getIrmao(); //Faz o primeiro apontar pro próximo
+            primeiro = primeiro.getProx(); //Faz o primeiro apontar pro próximo
         }
         tam--;//Diminui o tamanha da lista
         return o; // retorna objeto q foi removido
@@ -95,12 +96,12 @@ public class Lista implements ILista{
         if(!estaVazia()){
             Celula c = primeiro,aux = c;
             while(c!=null){ //percorre a lista pra encontrar o penultimo
-                if(c.getIrmao()== null){
-                    aux.setIrmao(null);
+                if(c.getProx() == null){
+                    aux.setProx(null);
                     ultimo = aux; //Faz o ultimo aportar pro penultimo da lista
                 }
                 aux = c;
-                c = c.getIrmao();
+                c = c.getProx();
             }
         }
         tam--;//Diminui o tamanha da lista
@@ -119,13 +120,13 @@ public class Lista implements ILista{
                 int i = 1;
                 do{ //percorre pra encontrar a posição
                     if(index-1== i){
-                        o = aux.getIrmao().getObj();
-                        aux.setIrmao(aux.getIrmao().getIrmao()); //remove da lista subistituindo a referencia da celula anterior
+                        o = aux.getProx().getObj();
+                        aux.setProx(aux.getProx().getProx()); //remove da lista subistituindo a referencia da celula anterior
                         tam--;//Diminui o tamanho da lista
                         break;
                     }
                     i++;
-                    aux = aux.getIrmao();
+                    aux = aux.getProx();
                 }while(aux!=null);
             }else if(index == tam) //verifica se não é no final da lista
                 o = removerFinal();
@@ -149,7 +150,7 @@ public class Lista implements ILista{
                     }
                     //aux.getObj().toString();
                     i++;
-                    aux = aux.getIrmao();
+                    aux = aux.getProx();
                 }else
                     return null;
             }
@@ -172,13 +173,13 @@ public class Lista implements ILista{
             aux = getCelula(origem-1); //encontra a celula anterior a origem
             aux2 = getCelula(destino-1);//encontra a celula anterior ao destino;
             if(destino==1){
-                aux.setIrmao(de.getIrmao());
-                de.setIrmao(para);
+                aux.setProx(de.getProx());
+                de.setProx(para);
                 primeiro = de;
             }else if(destino>0 && destino<tam) {
-                aux.setIrmao(de.getIrmao());
-                aux2.setIrmao(de);
-                de.setIrmao(para);
+                aux.setProx(de.getProx());
+                aux2.setProx(de);
+                de.setProx(para);
                 
             }
             if(origem==tam){
@@ -196,7 +197,7 @@ public class Lista implements ILista{
                         break;
                     }
                     i++;
-                    aux = aux.getIrmao();
+                    aux = aux.getProx();
                 }while(aux!=null);
             }
         }

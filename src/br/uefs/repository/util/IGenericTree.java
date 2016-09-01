@@ -5,7 +5,7 @@
  */
 package br.uefs.repository.util;
 
-import br.uefs.repository.model.Celula;
+import br.uefs.repository.model.CelulaArvore;
 
 /**
  *
@@ -15,11 +15,11 @@ public interface IGenericTree{
     
     public void addRoot(Object o);
     public Object getRoot();
-    public void addSon(Object o, Celula pai);
-    public Iterador getSon(Celula pai);
-    public void set(Object o, Celula celula);
-    public void remove(Celula celula);
+    public void addSon(Object o, CelulaArvore pai);
+    public Object[] getSons(CelulaArvore pai);
+    public void set(Object o, CelulaArvore celula);
+    public void remove(CelulaArvore celula);
     public int size();
-    public int height (Celula celula);
+    public int height (CelulaArvore celula);
     public Iterador iterator();   
 }

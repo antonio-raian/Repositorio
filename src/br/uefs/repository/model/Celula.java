@@ -5,51 +5,41 @@
  */
 package br.uefs.repository.model;
 
-import br.uefs.repository.util.Iterador;
-import br.uefs.repository.util.ipl.Lista;
-
 /**
  *
  * @author Antonio
  */
 public class Celula {
-    
     private Object obj;
-    private Celula pai;
-    private Lista filhos;
-    private Celula irmao;
+    private Celula prox; // referencia para a próxima celula
+    private Celula ant; // referencia para a celula anterior
 
-    public Celula(Object o) {
-        this.obj = o;
-        filhos = new Lista();
+    public Celula(Object obj) {
+        this.obj = obj;
     }
 
     public Object getObj() {
         return obj;
     }
 
-    public Celula getPai() {
-        return pai;
+    public Celula getProx() {
+        return prox;
     }
 
-    public void setPai(Celula pai) {
-        this.pai = pai;
+    public void setProx(Celula prox) {
+        this.prox = prox;
     }
 
-    public Iterador getFilhos() {
-        return filhos.iterador();
+    public Celula getAnt() {
+        return ant;
     }
 
-    public void setFilho(Object filho) {
-        filhos.inserirFinal(filho);
+    public void setAnt(Celula ant) {
+        this.ant = ant;
     }
 
-    public Celula getIrmao() {
-        return irmao;
+    @Override
+    public String toString() {
+        return obj.toString(); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public void setIrmao(Celula irmao) {
-        this.irmao = irmao;
-    }
-    
 }
