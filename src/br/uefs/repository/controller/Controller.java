@@ -7,6 +7,7 @@ package br.uefs.repository.controller;
 
 import br.uefs.repository.exceptions.CelulaNaoEncontradoException;
 import br.uefs.repository.exceptions.NaoEhPastaException;
+import br.uefs.repository.util.Iterador;
 import br.uefs.repository.util.ipl.ArvoreGenerica;
 import java.io.File;
 
@@ -38,11 +39,22 @@ public class Controller {
         for(File file:filhos){
             arvoreRepositorio.addSon(file.getName(), pai);
             if(file.isDirectory()){
-                pai = file.getName();
+                String dad = file.getName();
                 File[] aux = file.listFiles();
-                arvoreRepositorio.addSon(aux, pai);
+                adicionaFilho(aux, dad);
             }
 
         }
+    }
+    
+    public String[] mostraArvore(){
+        Iterador it = arvoreRepositorio.iterator();
+        String[] str = new String[arvoreRepositorio.size()];
+        int i=0;
+        while(it.temProximo()){
+            str[i] = (String) it.obterProximo();
+            i++;
+        }
+        return str;
     }
 }

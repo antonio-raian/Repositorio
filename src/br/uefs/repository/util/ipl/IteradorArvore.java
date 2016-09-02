@@ -14,32 +14,44 @@ import br.uefs.repository.util.Iterador;
  */
 public class IteradorArvore implements Iterador{
 
-    private Fila arvore;
+    private Fila filaArvore = new Fila();
 
     public IteradorArvore(CelulaArvore root) {
-        arvore.inserirFinal(root);
+        filaArvore.inserirFinal(root);
     }
     
     @Override
     public boolean temProximo() {
-        return !arvore.estaVazia();
+        return !filaArvore.estaVazia();
     }
 
     @Override
     public Object obterProximo() {
-        CelulaArvore c = (CelulaArvore)arvore.removerInicio();
+        CelulaArvore c = (CelulaArvore)filaArvore.removerInicio();
         if(c.getFilho()!=null){
             CelulaArvore aux = c.getFilho();
             while(aux!=null){
-                arvore.inserirFinal(aux);
+                filaArvore.inserirFinal(aux);
                 aux = aux.getIrmao();
             }
         }
         return c.getObj();
     }
+    
+    public Object obterCelula(){
+        CelulaArvore c = (CelulaArvore)filaArvore.removerInicio();
+        if(c.getFilho()!=null){
+            CelulaArvore aux = c.getFilho();
+            while(aux!=null){
+                filaArvore.inserirFinal(aux);
+                aux = aux.getIrmao();
+            }
+        }
+        return c;
+    }
 
     @Override
     public String toString() {
-        return arvore.recuperarInicio().toString();
+        return filaArvore.recuperarInicio().toString();
     }
 }

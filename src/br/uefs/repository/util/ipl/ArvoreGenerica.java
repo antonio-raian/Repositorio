@@ -147,14 +147,15 @@ public class ArvoreGenerica implements IGenericTree{
 
     @Override
     public Iterador iterator() {
-        return new IteradorArvore(root);
+        Iterador it = new IteradorArvore(root);
+        return it;
     }
     
     private Object encontra(Object o){
-        Iterador it = iterator();
+        IteradorArvore it = (IteradorArvore) iterator();
         
         while (it.temProximo()){
-            CelulaArvore aux = (CelulaArvore) it.obterProximo();
+            CelulaArvore aux = (CelulaArvore) it.obterCelula();
             if(aux.getObj().equals(o)){
                 return aux;
             }
