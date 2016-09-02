@@ -24,7 +24,7 @@ public class Controller {
     
     public void geraArvore (String str) throws CelulaNaoEncontradoException, NaoEhPastaException{
         File f = new File(str);
-        arvoreRepositorio.addRoot(str);
+        arvoreRepositorio.addSon(str, null);
         if(f.isDirectory()){
             File[] vF= f.listFiles();
             String pai = str;

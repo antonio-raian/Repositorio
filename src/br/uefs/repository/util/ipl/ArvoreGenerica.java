@@ -18,48 +18,32 @@ public class ArvoreGenerica implements IGenericTree{
 
     private CelulaArvore root;
     private int tam;
-    
-    @Override
-    public void addRoot(Object o) {
-        root = new CelulaArvore(o);
-        root.setPai(null);
-        root.setIrmao(null);
-        tam++;
-    }
-
-    @Override
-    public Object getRoot() {
-        if(root!=null){
-            return root.getObj();
-        }
-        return null;
-    }
-
-    /**
-     *
-     * @param obj
-     * @param pai
-     * @throws CelulaNaoEncontradoException
-     */
+   
     @Override
     public void addSon(Object obj, Object pai) throws CelulaNaoEncontradoException{
         CelulaArvore filho = new CelulaArvore(obj);
-        CelulaArvore aux = (CelulaArvore)encontra(pai);
-        if(aux == null){
-            throw new CelulaNaoEncontradoException("error!");
-        }
-        if(aux.getFilho()==null){
-            filho.setPai(aux);
-            aux.setFilho(filho);
+        if(pai==null){
+            root = filho;
+            root.setIrmao(null);
+            root.setPai(null);
         }else{
-            CelulaArvore aux2 = aux.getFilho();
-            while(aux2!=null){
-                if(aux2.getIrmao()==null){
-                    filho.setPai(aux);
-                    aux2.setIrmao(filho);
-                    break;
+            CelulaArvore aux = (CelulaArvore)encontra(pai);
+            if(aux == null){
+                throw new CelulaNaoEncontradoException("error!");
+            }
+            if(aux.getFilho()==null){
+                filho.setPai(aux);
+                aux.setFilho(filho);
+            }else{
+                CelulaArvore aux2 = aux.getFilho();
+                while(aux2!=null){
+                    if(aux2.getIrmao()==null){
+                        filho.setPai(aux);
+                        aux2.setIrmao(filho);
+                        break;
+                    }
+                    aux2 = aux2.getIrmao();
                 }
-                aux2 = aux2.getIrmao();
             }
         }
         tam++;
@@ -89,37 +73,6 @@ public class ArvoreGenerica implements IGenericTree{
         }
         
         return filhos;
-    }
-
-    @Override
-    public void set(Object o, Object celula) throws CelulaNaoEncontradoException{
-        CelulaArvore aux = (CelulaArvore)encontra(celula);
-        if(aux == null){
-            throw new CelulaNaoEncontradoException("error!");
-        }
-        aux.setObj(o);
-    }
-
-    @Override
-    public void remove(Object celula) throws CelulaNaoEncontradoException{
-        CelulaArvore aux = (CelulaArvore)encontra(celula);
-        if(aux == null){
-            throw new CelulaNaoEncontradoException("error!");
-        }
-        
-        if(aux.getFilho()!=null){
-            aux.setObj(aux.getFilho().getObj());
-            remove(aux.getFilho().getObj());
-        }else{
-            CelulaArvore pai = aux.getPai();
-            if(pai==null){
-                root = null;
-            }else{
-                pai.setFilho(aux.getIrmao());
-            }
-        }
-        tam--;
-
     }
 
     @Override
