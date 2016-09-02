@@ -56,4 +56,16 @@ public class CelulaArvore {
     public String toString() {
         return obj.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof CelulaArvore){
+            CelulaArvore c = (CelulaArvore) obj;
+            
+            if(this.obj == c.obj && this.pai == c.pai){
+                return true;
+            }
+        }
+        return false;
+    }
 }

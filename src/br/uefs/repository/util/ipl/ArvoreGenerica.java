@@ -5,6 +5,7 @@
  */
 package br.uefs.repository.util.ipl;
 
+import br.uefs.repository.exceptions.CelulaNaoEncontradoException;
 import br.uefs.repository.model.CelulaArvore;
 import br.uefs.repository.util.IGenericTree;
 import br.uefs.repository.util.Iterador;
@@ -28,67 +29,93 @@ public class ArvoreGenerica implements IGenericTree{
 
     @Override
     public Object getRoot() {
-        return root.getObj();
+        if(root!=null){
+            return root.getObj();
+        }
+        return null;
     }
 
+    /**
+     *
+     * @param obj
+     * @param pai
+     * @throws CelulaNaoEncontradoException
+     */
     @Override
-    public void addSon(Object o, CelulaArvore pai) {
-        CelulaArvore filho = new CelulaArvore(o);
-        if(pai.getFilho()==null){
-            filho.setPai(pai);
-            pai.setFilho(filho);
+    public void addSon(Object obj, Object pai) throws CelulaNaoEncontradoException{
+        CelulaArvore filho = new CelulaArvore(obj);
+        CelulaArvore aux = (CelulaArvore)encontra(pai);
+        if(aux == null){
+            throw new CelulaNaoEncontradoException("error!");
+        }
+        if(aux.getFilho()==null){
+            filho.setPai(aux);
+            aux.setFilho(filho);
         }else{
-            CelulaArvore aux = pai.getFilho();
-            while(aux!=null){
-                if(aux.getIrmao()==null){
-                    filho.setPai(pai);
-                    aux.setIrmao(filho);
+            CelulaArvore aux2 = aux.getFilho();
+            while(aux2!=null){
+                if(aux2.getIrmao()==null){
+                    filho.setPai(aux);
+                    aux2.setIrmao(filho);
                     break;
                 }
-                aux = aux.getIrmao();
+                aux2 = aux2.getIrmao();
             }
         }
         tam++;
     }
 
     @Override
-    public Object[] getSons(CelulaArvore pai) {
-        CelulaArvore aux = pai.getFilho();
+    public Object[] getSons(Object pai) throws CelulaNaoEncontradoException{
+        CelulaArvore aux = (CelulaArvore)encontra(pai);
+        if(aux == null){
+            throw new CelulaNaoEncontradoException("error!");
+        }
+        
+        CelulaArvore aux2 = aux.getFilho();
         int cont=0;
-        while (aux !=null){
+        while (aux2 !=null){
             cont++;
-            aux = aux.getIrmao();
+            aux2 = aux2.getIrmao();
         }
         
         Object[] filhos = new Object[cont];
-        aux = pai.getFilho();
+        aux2 = aux.getFilho();
         int i =0;
-        while(aux!=null){
-            filhos[i] = aux.getObj();
+        while(aux2!=null){
+            filhos[i] = aux2.getObj();
             i++;
-            aux = aux.getIrmao();
+            aux2 = aux2.getIrmao();
         }
         
         return filhos;
     }
 
     @Override
-    public void set(Object o, CelulaArvore celula) {
-        if(celula!=null)
-            celula.setObj(o);
+    public void set(Object o, Object celula) throws CelulaNaoEncontradoException{
+        CelulaArvore aux = (CelulaArvore)encontra(celula);
+        if(aux == null){
+            throw new CelulaNaoEncontradoException("error!");
+        }
+        aux.setObj(o);
     }
 
     @Override
-    public void remove(CelulaArvore celula) {
-        if(celula.getFilho()!=null){
-            celula.setObj(celula.getFilho().getObj());
-            remove(celula.getFilho());
+    public void remove(Object celula) throws CelulaNaoEncontradoException{
+        CelulaArvore aux = (CelulaArvore)encontra(celula);
+        if(aux == null){
+            throw new CelulaNaoEncontradoException("error!");
+        }
+        
+        if(aux.getFilho()!=null){
+            aux.setObj(aux.getFilho().getObj());
+            remove(aux.getFilho().getObj());
         }else{
-            CelulaArvore pai = celula.getPai();
+            CelulaArvore pai = aux.getPai();
             if(pai==null){
                 root = null;
             }else{
-                pai.setFilho(celula.getIrmao());
+                pai.setFilho(aux.getIrmao());
             }
         }
         tam--;
@@ -101,12 +128,17 @@ public class ArvoreGenerica implements IGenericTree{
     }
 
     @Override
-    public int height(CelulaArvore celula) {
+    public int height(Object celula) throws CelulaNaoEncontradoException{
+        CelulaArvore aux = (CelulaArvore)encontra(celula);
+        if(aux == null){
+            throw new CelulaNaoEncontradoException("error!");
+        }
+        
         int cont= 0;
-        if(celula != root){
-            CelulaArvore aux = celula.getPai();
-            while(aux!=null){
-                aux = aux.getPai();
+        if(aux != root){
+            CelulaArvore aux2 = aux.getPai();
+            while(aux2!=null){
+                aux2 = aux2.getPai();
                 cont++;
             }
         }
@@ -115,6 +147,19 @@ public class ArvoreGenerica implements IGenericTree{
 
     @Override
     public Iterador iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new IteradorArvore(root);
+    }
+    
+    private Object encontra(Object o){
+        Iterador it = iterator();
+        
+        while (it.temProximo()){
+            CelulaArvore aux = (CelulaArvore) it.obterProximo();
+            if(aux.getObj().equals(o)){
+                return aux;
+            }
+        }
+        return null;
+        
     }
 }
