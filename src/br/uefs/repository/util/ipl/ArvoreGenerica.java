@@ -26,19 +26,20 @@ public class ArvoreGenerica implements IGenericTree{
             root = filho;
             root.setIrmao(null);
             root.setPai(null);
+            root.setAltura(0);
         }else{
             CelulaArvore aux = (CelulaArvore)encontra(pai);
             if(aux == null){
                 throw new CelulaNaoEncontradoException("error!");
             }
+            filho.setPai(aux);
+            filho.setAltura(aux.getAltura()+1);
             if(aux.getFilho()==null){
-                filho.setPai(aux);
                 aux.setFilho(filho);
             }else{
                 CelulaArvore aux2 = aux.getFilho();
                 while(aux2!=null){
                     if(aux2.getIrmao()==null){
-                        filho.setPai(aux);
                         aux2.setIrmao(filho);
                         break;
                     }
@@ -105,15 +106,20 @@ public class ArvoreGenerica implements IGenericTree{
     }
     
     private Object encontra(Object o){
-        IteradorArvore it = (IteradorArvore) iterator();
-        
-        while (it.temProximo()){
-            CelulaArvore aux = (CelulaArvore) it.obterCelula();
+        Fila filaArvore = new Fila();
+        filaArvore.inserirFinal(root);
+        while (!filaArvore.estaVazia()){
+            CelulaArvore aux = (CelulaArvore)filaArvore.removerInicio();
             if(aux.getObj().equals(o)){
                 return aux;
+            }else if(aux.getFilho()!=null){
+                CelulaArvore aux2 = aux.getFilho();
+                while(aux2!=null){
+                    filaArvore.inserirFinal(aux2);
+                    aux2 = aux2.getIrmao();
+                }
             }
         }
         return null;
-        
     }
 }

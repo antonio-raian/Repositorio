@@ -38,18 +38,6 @@ public class IteradorArvore implements Iterador{
         return c.getObj();
     }
     
-    public Object obterCelula(){
-        CelulaArvore c = (CelulaArvore)filaArvore.removerInicio();
-        if(c.getFilho()!=null){
-            CelulaArvore aux = c.getFilho();
-            while(aux!=null){
-                filaArvore.inserirFinal(aux);
-                aux = aux.getIrmao();
-            }
-        }
-        return c;
-    }
-
     @Override
     public String toString() {
         return filaArvore.recuperarInicio().toString();

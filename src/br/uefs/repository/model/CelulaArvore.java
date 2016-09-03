@@ -15,6 +15,7 @@ public class CelulaArvore {
     private CelulaArvore pai;
     private CelulaArvore filho;
     private CelulaArvore irmao;
+    private int altura;
 
     public CelulaArvore(Object o) {
         this.obj = o;
@@ -50,6 +51,14 @@ public class CelulaArvore {
 
     public void setIrmao(CelulaArvore irmao) {
         this.irmao = irmao;
+    }
+    
+     public int getAltura() {
+        return altura;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
     }
 
     @Override
