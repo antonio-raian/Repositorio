@@ -22,35 +22,26 @@ public class Menu {
         int opcao;
         Controller controller = new Controller();
         do{
-        System.out.print("Sistema de Gerenciamento de Arquivos e Diretório");
-        System.out.print("Opcao 1 - Montar Hieraquiade Arquivos e Diretorios");
-        System.out.print("Opcao 2 - Pesquisar um Arquivo");
-        System.out.print("Opcao 3 - Pesquisar Pasta");
-        System.out.print("Opcao 4 - Pesquisar um Arquivo por Tipo");
-        System.out.print("Opcao 5 - Gerar um Arquivo de Informações de Pastas e Arquivos");
-        System.out.print("Opcao 6 - Encerrar Programa");
-        
-        opcao = Console.readInt();
-             switch (opcao){
-                  case 1:
-                       System.out.print("Insira o Caminho da Pasta para Montar Hierarquia");
-                       String caminho = Console.readString();
-                       {
-                            try {
-                                controller.geraArvore(caminho);
-                                String[] arv = controller.mostraArvore();
-                                  for(String s:arv){
-                                      System.out.println(s);
-                                  }
-                            } catch (CelulaNaoEncontradoException | NaoEhPastaException ex) {
-                                System.out.println("Não encontrou alguma celula pai");
-                                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-        
-                       }
-                        break;
-        
+            System.out.println("Sistema de Gerenciamento de Arquivos e Diretório");
+            System.out.println("Opcao 1 - Montar Hieraquiade Arquivos e Diretorios");
+            System.out.println("Opcao 2 - Pesquisar um Arquivo");
+            System.out.println("Opcao 3 - Pesquisar Pasta");
+            System.out.println("Opcao 4 - Pesquisar um Arquivo por Tipo");
+            System.out.println("Opcao 5 - Gerar um Arquivo de Informações de Pastas e Arquivos");
+            System.out.println("Opcao 6 - Encerrar Programa");
+
+            opcao = Console.readInt();
+            switch (opcao){
+                case 1:
+                    System.out.println("Insira o Caminho da Pasta para Montar Hierarquia");
+                    String caminho = Console.readString();
+                    try {
+                        controller.geraArvore(caminho);
+                    } catch (CelulaNaoEncontradoException | NaoEhPastaException ex) {
+                        System.out.println("Não é um diretório Válido!");
+                    }
+                    break;
             }
-       }while(opcao!=6);
+        }while(opcao!=6);
    }
 }
