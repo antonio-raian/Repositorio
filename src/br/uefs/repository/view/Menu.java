@@ -6,10 +6,12 @@
 package br.uefs.repository.view;
 
 import br.uefs.repository.controller.Controller;
+import br.uefs.repository.exceptions.ArquivoNaoEncontradoException;
 import br.uefs.repository.exceptions.CelulaNaoEncontradoException;
 import br.uefs.repository.exceptions.NaoEhPastaException;
 import br.uefs.repository.util.Console;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +20,7 @@ import java.util.logging.Logger;
  * @author Antonio
  */
 public class Menu {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ArquivoNaoEncontradoException, CelulaNaoEncontradoException {
         int opcao;
         boolean montado = false;
         Controller controller = new Controller();
@@ -31,7 +33,7 @@ public class Menu {
                 System.out.println("3 - Pesquisar Pasta");
                 System.out.println("4 - Pesquisar um Arquivo por Tipo");
                 System.out.println("5 - Gerar um Arquivo de Informações de Pastas e Arquivos");
-                System.out.println("0 - mostrar");
+                System.out.println("0 - Mostrar");
             }
             System.out.println("6 - Encerrar Programa");
             System.out.println("Digite o numero correspondente a opção que deseja:");
@@ -40,6 +42,7 @@ public class Menu {
             switch (opcao){
                 case 0: 
                     if(montado){
+                        System.out.println("\nElementos da Árvore:");
                         String[] str=controller.mostraArvore();
                         for(String s:str){
                             System.out.println(s);
@@ -61,7 +64,46 @@ public class Menu {
                         System.out.println("Opção invalida!\n \n");
                     }
                     break;
+                case 2:
+                    if(montado){
+                        System.out.println("Insira o Nome e o Nível da Profundidade de Busca do Arquivo, Respectivamente");
+                        String nome = Console.readString();
+                        int nivel = Console.readInt();
+                        try {
+                             String[] str = controller.buscaArquivo(nome, nivel);
+                             System.out.println("\nCsminho do Arquivo:");
+                             for(String s:str){
+                                if(s != null)
+                                    System.out.println(s);
+                            }
+                        } catch (ArquivoNaoEncontradoException ex) {
+                            System.out.println("Não é um Arquivo Válido!");
+                        }   
+                    }else{
+                        System.out.println("Opção invalida!\n \n");
+                    }
+                    break;
+                case 3:
+                    if(montado){
+                        System.out.println("Insira o Nome e o Nível da Profundidade de Busca da Pasta, Respectivamente");
+                        String nome = Console.readString();
+                        int nivel = Console.readInt();
+                        try {
+                             String[] str = controller.buscaPasta(nome, nivel);
+                             System.out.println("\nCsminho da Pasta:");
+                             for(String s:str){
+                                if(s != null)
+                                    System.out.println(s);
+                            }
+                        } catch (ArquivoNaoEncontradoException ex) {
+                            System.out.println("Não é uma Pasta Válido!");
+                        }   
+                    }else{
+                        System.out.println("Opção invalida!\n \n");
+                    }
+                    break;
             }
-        }while(opcao!=6);
-   }
+     }while(opcao!=6);
+     
+  }
 }

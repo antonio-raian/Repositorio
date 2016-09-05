@@ -5,6 +5,7 @@
  */
 package br.uefs.repository.controller;
 
+import br.uefs.repository.exceptions.ArquivoNaoEncontradoException;
 import br.uefs.repository.exceptions.CelulaNaoEncontradoException;
 import br.uefs.repository.exceptions.NaoEhPastaException;
 import br.uefs.repository.util.Iterador;
@@ -17,13 +18,15 @@ import java.io.File;
  */
 public class Controller {
     private ArvoreGenerica arvoreRepositorio;
-
+    private String caminho;
+    
     public Controller() {
         arvoreRepositorio = new ArvoreGenerica();
     }
     
     public void geraArvore (String str) throws CelulaNaoEncontradoException, NaoEhPastaException{
         File f = new File(str);
+        caminho = str;
         arvoreRepositorio.addSon(str, null);
         if(f.isDirectory()){
             File[] vF= f.listFiles();
@@ -57,4 +60,68 @@ public class Controller {
         }
         return str;
     }
-}
+    public String[] buscaArquivo(String nome, int nivel) throws ArquivoNaoEncontradoException, CelulaNaoEncontradoException{
+        Iterador it = arvoreRepositorio.iterator();
+        String[] string = new String[arvoreRepositorio.size()];
+        int condicao = 0;
+        int i=0;
+        File file = new File(caminho+"\\"+nome);
+        if(file.isFile()){
+            if(nivel == 0){
+               return mostraArvore();
+            }
+            else{
+                    while(it.temProximo()){
+                        Object obj = (Object)it.obterProximo();
+                        int altura = arvoreRepositorio.height(obj);
+                        if(altura<=nivel){ 
+                            string[i] = (String) obj;
+                            if(nivel == altura){  
+                                  if(nome.equals(obj)){
+                                         condicao = 1;
+                                  }
+                            }i++;
+
+                       }
+                   }
+                   if(condicao == 1)
+                        return string;
+                   throw new ArquivoNaoEncontradoException();
+           }
+       }
+       throw new ArquivoNaoEncontradoException();
+    }
+    
+    
+    public String[] buscaPasta(String nome, int nivel) throws ArquivoNaoEncontradoException, CelulaNaoEncontradoException{
+        Iterador it = arvoreRepositorio.iterator();
+        String[] string = new String[arvoreRepositorio.size()];
+        int condicao = 0;
+        int i=0;
+        File file = new File(caminho+"\\"+nome);
+        if(file.isDirectory()){
+            if(nivel == 0){
+               return mostraArvore();
+            }
+            else{
+                    while(it.temProximo()){
+                        Object obj = (Object)it.obterProximo();
+                        int altura = arvoreRepositorio.height(obj);
+                        if(altura<=nivel){ 
+                            string[i] = (String) obj;
+                            if(nivel == altura){  
+                                  if(nome.equals(obj)){
+                                         condicao = 1;
+                                  }
+                            }i++;
+
+                       }
+                   }
+                   if(condicao == 1)
+                        return string;
+                   throw new ArquivoNaoEncontradoException();
+           }
+       }
+       throw new ArquivoNaoEncontradoException();
+    }
+  }

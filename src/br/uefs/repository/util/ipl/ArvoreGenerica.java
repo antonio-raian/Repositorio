@@ -5,10 +5,13 @@
  */
 package br.uefs.repository.util.ipl;
 
+import br.uefs.repository.exceptions.ArquivoNaoEncontradoException;
 import br.uefs.repository.exceptions.CelulaNaoEncontradoException;
 import br.uefs.repository.model.CelulaArvore;
 import br.uefs.repository.util.IGenericTree;
 import br.uefs.repository.util.Iterador;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -82,23 +85,15 @@ public class ArvoreGenerica implements IGenericTree{
     }
 
     @Override
-    public int height(Object celula) throws CelulaNaoEncontradoException{
-        CelulaArvore aux = (CelulaArvore)encontra(celula);
+    public int height(Object obj) throws CelulaNaoEncontradoException{
+        CelulaArvore aux = (CelulaArvore)encontra(obj);
         if(aux == null){
-            throw new CelulaNaoEncontradoException("error!");
+             throw new CelulaNaoEncontradoException("error!");
         }
-        
-        int cont= 0;
-        if(aux != root){
-            CelulaArvore aux2 = aux.getPai();
-            while(aux2!=null){
-                aux2 = aux2.getPai();
-                cont++;
-            }
-        }
-        return cont;
+        int altura;
+        return altura = aux.getAltura();
     }
-
+    
     @Override
     public Iterador iterator() {
         Iterador it = new IteradorArvore(root);
