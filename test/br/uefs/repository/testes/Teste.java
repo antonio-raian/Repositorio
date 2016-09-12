@@ -15,21 +15,11 @@ public class Teste {
             ctr  = new Controller();
     }
 
-    @Test //testa se está logando
-    public void testLoginSucesso() throws IOException, InterruptedException, ClassNotFoundException{ 
-            assertEquals("Usuário Antonio Logado!","Bosta");
-    }
-    
     @Test
     public void testaCriacao() throws CelulaNaoEncontradoException, NaoEhPastaException{
         ctr.geraArvore("D:\\Desktop\\Teste");
         String[] array = {"D:\\Desktop\\Teste","PorraDeNada.txt","Teste2","Teste3",
             "Carai.txt","teste4","Nada.txt","Pensando.txt"};
         assertArrayEquals(array, ctr.mostraArvore());
-    }
-    
-    @Test
-    public void bosta(){
-        assertEquals("Bosta", "Bosta");
     }
 }
