@@ -5,13 +5,10 @@
  */
 package br.uefs.repository.util.ipl;
 
-import br.uefs.repository.exceptions.ArquivoNaoEncontradoException;
 import br.uefs.repository.exceptions.CelulaNaoEncontradoException;
 import br.uefs.repository.model.CelulaArvore;
 import br.uefs.repository.util.IGenericTree;
 import br.uefs.repository.util.Iterador;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,20 +20,20 @@ public class ArvoreGenerica implements IGenericTree{
     private int tam;
    
     @Override
-    public void addSon(Object obj, Object pai) throws CelulaNaoEncontradoException{
+    public void addSon(Object obj, Object pai, int altura) throws CelulaNaoEncontradoException{
         CelulaArvore filho = new CelulaArvore(obj);
-        if(pai==null){
+        if(pai==null){            
+            filho.setIrmao(null);
+            filho.setPai(null);
+            filho.setAltura(altura);
             root = filho;
-            root.setIrmao(null);
-            root.setPai(null);
-            root.setAltura(0);
         }else{
-            CelulaArvore aux = (CelulaArvore)encontra(pai);
+            CelulaArvore aux = (CelulaArvore)encontra(pai,(altura-1));
             if(aux == null){
                 throw new CelulaNaoEncontradoException("error!");
             }
             filho.setPai(aux);
-            filho.setAltura(aux.getAltura()+1);
+            filho.setAltura(altura);
             if(aux.getFilho()==null){
                 aux.setFilho(filho);
             }else{
@@ -54,45 +51,18 @@ public class ArvoreGenerica implements IGenericTree{
     }
 
     @Override
-    public Object[] getSons(Object pai) throws CelulaNaoEncontradoException{
-        CelulaArvore aux = (CelulaArvore)encontra(pai);
-        if(aux == null){
-            throw new CelulaNaoEncontradoException("error!");
-        }
-        
-        CelulaArvore aux2 = aux.getFilho();
-        int cont=0;
-        while (aux2 !=null){
-            cont++;
-            aux2 = aux2.getIrmao();
-        }
-        
-        Object[] filhos = new Object[cont];
-        aux2 = aux.getFilho();
-        int i =0;
-        while(aux2!=null){
-            filhos[i] = aux2.getObj();
-            i++;
-            aux2 = aux2.getIrmao();
-        }
-        
-        return filhos;
-    }
-
-    @Override
     public int size() {
         return tam;
     }
 
-    @Override
-    public int height(Object obj) throws CelulaNaoEncontradoException{
-        CelulaArvore aux = (CelulaArvore)encontra(obj);
-        if(aux == null){
-             throw new CelulaNaoEncontradoException("error!");
-        }
-        int altura;
-        return altura = aux.getAltura();
-    }
+//    @Override
+//    public int height(Object obj) throws CelulaNaoEncontradoException{
+//        CelulaArvore aux = (CelulaArvore)encontra(obj);
+//        if(aux == null){
+//             throw new CelulaNaoEncontradoException("error!");
+//        }
+//        return aux.getAltura();
+//    }
     
     @Override
     public Iterador iterator() {
@@ -100,12 +70,12 @@ public class ArvoreGenerica implements IGenericTree{
         return it;
     }
     
-    private Object encontra(Object o){
+    private Object encontra(Object o, int altura){
         Fila filaArvore = new Fila();
         filaArvore.inserirFinal(root);
         while (!filaArvore.estaVazia()){
             CelulaArvore aux = (CelulaArvore)filaArvore.removerInicio();
-            if(aux.getObj().equals(o)){
+            if(aux.getObj().equals(o)&&aux.getAltura()==altura){
                 return aux;
             }else if(aux.getFilho()!=null){
                 CelulaArvore aux2 = aux.getFilho();

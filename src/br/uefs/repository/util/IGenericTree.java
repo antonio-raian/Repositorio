@@ -12,9 +12,8 @@ import br.uefs.repository.exceptions.CelulaNaoEncontradoException;
  */
 public interface IGenericTree{
    
-    public void addSon(Object o, Object pai)throws CelulaNaoEncontradoException;
-    public Object[] getSons(Object pai) throws CelulaNaoEncontradoException;
+    public void addSon(Object o, Object pai, int altura)throws CelulaNaoEncontradoException;
     public int size();
-    public int height (Object celula)throws CelulaNaoEncontradoException;
+    //public int height (Object celula)throws CelulaNaoEncontradoException;
     public Iterador iterator();   
 }

@@ -57,7 +57,7 @@ public class Menu {
                             controller.geraArvore(caminho);
                             montado = true;
                             System.out.println("Repositório Montado!\n \n");
-                        } catch (CelulaNaoEncontradoException | NaoEhPastaException ex) {
+                        } catch (NaoEhPastaException ex) {
                             System.out.println("Não é um diretório Válido!");
                         }
                     }else{
@@ -66,15 +66,21 @@ public class Menu {
                     break;
                 case 2:
                     if(montado){
-                        System.out.println("Insira o Nome e o Nível da Profundidade de Busca do Arquivo, Respectivamente");
+                        System.out.println("Insira o Nome do Arquivo: ");
                         String nome = Console.readString();
+                        System.out.println("Insira o Nível da Profundidade: ");
                         int nivel = Console.readInt();
                         try {
-                             String[] str = controller.buscaArquivo(nome, nivel);
-                             System.out.println("\nCsminho do Arquivo:");
-                             for(String s:str){
-                                if(s != null)
-                                    System.out.println(s);
+                            if(nivel==0){
+                                String[] arv = controller.mostraArvore();
+                                for(String s:arv){
+                                    if(s != null)
+                                        System.out.print(s);
+                                }
+                            }else{
+                                String str = controller.buscaArquivo(nome, nivel);
+                                System.out.println("\nCaminho do Arquivo:");
+                                System.out.println(str);
                             }
                         } catch (ArquivoNaoEncontradoException ex) {
                             System.out.println("Não é um Arquivo Válido!");
