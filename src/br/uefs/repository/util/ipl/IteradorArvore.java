@@ -5,7 +5,7 @@
  */
 package br.uefs.repository.util.ipl;
 
-import br.uefs.repository.model.CelulaArvore;
+import br.uefs.repository.util.Elemento;
 import br.uefs.repository.util.Iterador;
 
 /**
@@ -26,7 +26,7 @@ public class IteradorArvore implements Iterador{
     }
 
     @Override
-    public Object obterProximo() {
+    public Elemento obterProximo() {
         CelulaArvore c = (CelulaArvore)filaArvore.removerInicio();
         if(c.getFilho()!=null){
             CelulaArvore aux = c.getFilho();
@@ -35,7 +35,7 @@ public class IteradorArvore implements Iterador{
                 aux = aux.getIrmao();
             }
         }
-        return c.getObj();
+        return c;
     }
     
     @Override

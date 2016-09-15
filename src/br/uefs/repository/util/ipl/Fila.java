@@ -5,7 +5,6 @@
  */
 package br.uefs.repository.util.ipl;
 
-import br.uefs.repository.model.Celula;
 import br.uefs.repository.util.IFila;
 
 /**

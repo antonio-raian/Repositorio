@@ -14,6 +14,6 @@ public interface IGenericTree{
    
     public void addSon(Object o, Object pai, int altura)throws CelulaNaoEncontradoException;
     public int size();
-    //public int height (Object celula)throws CelulaNaoEncontradoException;
+    public int height();
     public Iterador iterator();   
 }

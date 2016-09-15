@@ -16,7 +16,7 @@ public class Teste {
     }
 
     @Test
-    public void testaCriacao() throws CelulaNaoEncontradoException, NaoEhPastaException{
+    public void testaCriacao() throws CelulaNaoEncontradoException, NaoEhPastaException, PastaNaoEncontradaException{
         ctr.geraArvore("D:\\Desktop\\Teste");
         String[] array = {"D:\\Desktop\\Teste","PorraDeNada.txt","Teste2","Teste3",
             "Carai.txt","teste4","Nada.txt","Pensando.txt"};

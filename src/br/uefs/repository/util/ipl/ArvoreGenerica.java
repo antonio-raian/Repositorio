@@ -6,7 +6,7 @@
 package br.uefs.repository.util.ipl;
 
 import br.uefs.repository.exceptions.CelulaNaoEncontradoException;
-import br.uefs.repository.model.CelulaArvore;
+import br.uefs.repository.util.Elemento;
 import br.uefs.repository.util.IGenericTree;
 import br.uefs.repository.util.Iterador;
 
@@ -18,6 +18,7 @@ public class ArvoreGenerica implements IGenericTree{
 
     private CelulaArvore root;
     private int tam;
+    private int height = 0;
    
     @Override
     public void addSon(Object obj, Object pai, int altura) throws CelulaNaoEncontradoException{
@@ -48,26 +49,44 @@ public class ArvoreGenerica implements IGenericTree{
             }
         }
         tam++;
+        if(altura>height){
+            height = altura;
+        }
     }
 
+    public String caminho(Elemento e){
+        String str ="";
+        Pilha pilhaCaminho = new Pilha();
+        CelulaArvore cel = (CelulaArvore) e;
+        pilhaCaminho.inserirTopo(cel);
+        CelulaArvore aux = cel.getPai();
+        while(aux!=null){
+            pilhaCaminho.inserirTopo(aux);
+            aux=aux.getPai();
+        }
+        while(!pilhaCaminho.estaVazia()){
+            if(pilhaCaminho.recuperarTopo().toString().contains("\\")){
+                str+=pilhaCaminho.removerTopo().toString();
+            }else{
+                str+="\\"+pilhaCaminho.removerTopo().toString();
+            }
+        }
+        return str;
+    }
+    
     @Override
     public int size() {
         return tam;
     }
-
-//    @Override
-//    public int height(Object obj) throws CelulaNaoEncontradoException{
-//        CelulaArvore aux = (CelulaArvore)encontra(obj);
-//        if(aux == null){
-//             throw new CelulaNaoEncontradoException("error!");
-//        }
-//        return aux.getAltura();
-//    }
     
     @Override
     public Iterador iterator() {
-        Iterador it = new IteradorArvore(root);
-        return it;
+        return new IteradorArvore(root);
+    }
+    
+    public Iterador mapa(Elemento e){
+        CelulaArvore aux = (CelulaArvore) encontra(e.getObj(), e.getAltura());
+        return new IteradorArvore(aux);
     }
     
     private Object encontra(Object o, int altura){
@@ -86,5 +105,10 @@ public class ArvoreGenerica implements IGenericTree{
             }
         }
         return null;
+    }
+
+    @Override
+    public int height() {
+        return height;
     }
 }

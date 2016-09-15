@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uefs.repository.model;
+package br.uefs.repository.util.ipl;
+
+import br.uefs.repository.util.Elemento;
 
 /**
  *
  * @author Antonio
  */
-public class CelulaArvore {
+public class CelulaArvore implements Elemento{
     
     private Object obj;
     private CelulaArvore pai;
@@ -21,6 +23,7 @@ public class CelulaArvore {
         this.obj = o;
     }
 
+    @Override
     public Object getObj() {
         return obj;
     }
@@ -53,7 +56,8 @@ public class CelulaArvore {
         this.irmao = irmao;
     }
     
-     public int getAltura() {
+    @Override
+    public int getAltura() {
         return altura;
     }
 
@@ -71,7 +75,7 @@ public class CelulaArvore {
         if(obj instanceof CelulaArvore){
             CelulaArvore c = (CelulaArvore) obj;
             
-            if(this.obj == c.obj && this.pai == c.pai){
+            if(this.obj == c.obj && this.pai == c.pai && this.altura == c.altura){
                 return true;
             }
         }

@@ -9,6 +9,8 @@ import br.uefs.repository.controller.Controller;
 import br.uefs.repository.exceptions.ArquivoNaoEncontradoException;
 import br.uefs.repository.exceptions.CelulaNaoEncontradoException;
 import br.uefs.repository.exceptions.NaoEhPastaException;
+import br.uefs.repository.exceptions.PastaNaoEncontradaException;
+import br.uefs.repository.exceptions.TipoNaoEncontradoException;
 import br.uefs.repository.util.Console;
 import java.io.IOException;
 import java.util.Arrays;
@@ -40,7 +42,7 @@ public class Menu {
             
             opcao = Console.readInt();
             switch (opcao){
-                case 0: 
+                case 0:{
                     if(montado){
                         System.out.println("\nElementos da Árvore:");
                         String[] str=controller.mostraArvore();
@@ -49,7 +51,8 @@ public class Menu {
                         }
                     }
                     break;
-                case 1:
+                }
+                case 1:{
                     if(!montado){
                         System.out.println("Insira o Caminho da Pasta para Montar Hierarquia");
                         String caminho = Console.readString();
@@ -58,13 +61,16 @@ public class Menu {
                             montado = true;
                             System.out.println("Repositório Montado!\n \n");
                         } catch (NaoEhPastaException ex) {
-                            System.out.println("Não é um diretório Válido!");
+                            System.out.println("O diretorio informado não é uma pasta!");
+                        }catch (PastaNaoEncontradaException ex){
+                            System.out.println("O diretorio informado não existe!");
                         }
                     }else{
                         System.out.println("Opção invalida!\n \n");
                     }
                     break;
-                case 2:
+                }
+                case 2:{
                     if(montado){
                         System.out.println("Insira o Nome do Arquivo: ");
                         String nome = Console.readString();
@@ -78,9 +84,13 @@ public class Menu {
                                         System.out.print(s);
                                 }
                             }else{
-                                String str = controller.buscaArquivo(nome, nivel);
+                                String[] str = controller.buscaArquivo(nome, nivel);
                                 System.out.println("\nCaminho do Arquivo:");
-                                System.out.println(str);
+                                int i = 0;
+                                while(str[i]!=null){
+                                    System.out.println(str[i]);
+                                    i++;
+                                }
                             }
                         } catch (ArquivoNaoEncontradoException ex) {
                             System.out.println("Não é um Arquivo Válido!");
@@ -89,25 +99,64 @@ public class Menu {
                         System.out.println("Opção invalida!\n \n");
                     }
                     break;
-                case 3:
+                }
+                case 3:{
                     if(montado){
-                        System.out.println("Insira o Nome e o Nível da Profundidade de Busca da Pasta, Respectivamente");
+                        System.out.println("Insira o Nome do Arquivo: ");
                         String nome = Console.readString();
+                        System.out.println("Insira o Nível da Profundidade: ");
                         int nivel = Console.readInt();
                         try {
                              String[] str = controller.buscaPasta(nome, nivel);
-                             System.out.println("\nCsminho da Pasta:");
+                             System.out.println("\nCaminho da Pasta:");
                              for(String s:str){
                                 if(s != null)
                                     System.out.println(s);
                             }
-                        } catch (ArquivoNaoEncontradoException ex) {
-                            System.out.println("Não é uma Pasta Válido!");
+                        }catch (PastaNaoEncontradaException ex) {
+                            System.out.println("Pasta não encontrada!");
                         }   
                     }else{
                         System.out.println("Opção invalida!\n \n");
                     }
                     break;
+                }
+                 case 4:{
+                    if(montado){
+                        System.out.println("Insira o Tipo do Aquivo");
+                        String tipo = Console.readString();
+                        System.out.println("Insira o Nível da Profundidade: ");
+                        int nivel = Console.readInt();
+                        try {
+                             String[] str = controller.buscaTipo(tipo, nivel);
+                             System.out.println("\nCsminho da Pasta:");
+                             for(String s:str){
+                                if(s != null)
+                                    System.out.println(s);
+                            }
+                        } catch (TipoNaoEncontradoException ex) {
+                            System.out.println("Tipo não encontrado!");
+                        }   
+                    }else{
+                        System.out.println("Opção invalida!\n \n");
+                    }
+                    break;
+                }
+                case 5:{
+                    if(montado){
+                        System.out.println("Insira o caminho da pasta que deseja mapear:");
+                        String diretorio = Console.readString();
+                        System.out.println("Insira o nível até onde deseja mapear:");
+                        int nivel = Console.readInt();
+                        System.out.println("Insira o caminho para o arquivo:");
+                        String nome = Console.readString();
+                        try {
+                            controller.mapeamento(diretorio, nome, nivel);
+                        } catch (PastaNaoEncontradaException ex) {
+                            System.out.println("Pasta não encontrada!");
+                        }
+                    }
+                }
             }
      }while(opcao!=6);
      
