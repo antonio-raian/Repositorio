@@ -151,9 +151,11 @@ public class Menu {
                         System.out.println("Insira o caminho para o arquivo:");
                         String nome = Console.readString();
                         try {
-                            controller.mapeamento(diretorio, nome, nivel);
+                            controller.geraArquivo(diretorio, nome, nivel);
                         } catch (PastaNaoEncontradaException ex) {
                             System.out.println("Pasta não encontrada!");
+                        } catch (IOException e){
+                            System.out.println("Não foi possível gerar o arquivo");
                         }
                     }
                 }

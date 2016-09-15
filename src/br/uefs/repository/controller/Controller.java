@@ -182,7 +182,7 @@ public class Controller {
         }
     }
   
-    public void mapeamento(String diretorio, String arquivo, int nivel) throws PastaNaoEncontradaException, IOException{
+    public void geraArquivo(String diretorio, String arquivo, int nivel) throws PastaNaoEncontradaException, IOException{
         String replace = diretorio.replace("\\", "/");
         String [] str = replace.split("/");
         String [] caminhos = new String[arvoreRepositorio.size()];
@@ -193,29 +193,40 @@ public class Controller {
             if(e.getObj().equals("\\"+str[str.length-1]))
                 break;
         }
-        
-        Iterador mapa = arvoreRepositorio.mapa(e);
-        Elemento aux, primeiro;
-        int i = 0;
-        primeiro = (Elemento) mapa.obterProximo();
-        while(mapa.temProximo()){
-            aux = (Elemento) mapa.obterProximo();
-            if(nivel==0 || nivel>=arvoreRepositorio.size()){
-                caminhos[i] = arvoreRepositorio.caminho(aux);
-                i++;
-            }else if(aux.getAltura()<=(nivel+primeiro.getAltura())){
-                caminhos[i] = arvoreRepositorio.caminho(aux);
-                i++;
+        if(e!=null){
+            Iterador mapa = arvoreRepositorio.mapa(e);
+            Elemento aux, primeiro;
+            int i = 0;
+            primeiro = (Elemento) mapa.obterProximo();
+            while(mapa.temProximo()){
+                aux = (Elemento) mapa.obterProximo();
+                if(nivel==0 || nivel>=arvoreRepositorio.size()){
+                    caminhos[i] = arvoreRepositorio.caminho(aux);
+                    i++;
+                }else if(aux.getAltura()<=(nivel+primeiro.getAltura())){
+                    caminhos[i] = arvoreRepositorio.caminho(aux);
+                    i++;
+                }
             }
-        }
-        
-        i=0;
-        File f = new File(arquivo);
-        if(f.exists()){
-            if(f.canWrite()){
+
+            i=0;
+            File f = new File(arquivo);
+            if(f.exists()){
+                if(f.canWrite()){
+                    FileWriter arq = new FileWriter(f);
+                    PrintWriter escrever = new PrintWriter(arq);
+
+                    while(caminhos[i]!=null){
+                        escrever.printf("%s %n",caminhos[i]);
+                        i++;
+                    }
+                    arq.close();
+                }
+            }else{
+                f.createNewFile();
                 FileWriter arq = new FileWriter(f);
                 PrintWriter escrever = new PrintWriter(arq);
-                
+
                 while(caminhos[i]!=null){
                     escrever.printf("%s %n",caminhos[i]);
                     i++;
@@ -223,15 +234,7 @@ public class Controller {
                 arq.close();
             }
         }else{
-            f.createNewFile();
-            FileWriter arq = new FileWriter(f);
-            PrintWriter escrever = new PrintWriter(arq);
-
-            while(caminhos[i]!=null){
-                escrever.printf("%s %n",caminhos[i]);
-                i++;
-            }
-            arq.close();
+            throw new PastaNaoEncontradaException();
         }
         
     }
