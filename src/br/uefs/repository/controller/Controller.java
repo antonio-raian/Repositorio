@@ -188,9 +188,10 @@ public class Controller {
         String [] caminhos = new String[arvoreRepositorio.size()];
         Iterador it = arvoreRepositorio.iterator();
         Elemento e = null;
+        
         while(it.temProximo()){
             e = (Elemento) it.obterProximo();
-            if(e.getObj().equals("\\"+str[str.length-1]))
+            if(arvoreRepositorio.caminho(e).equals(diretorio))
                 break;
         }
         if(e!=null){
