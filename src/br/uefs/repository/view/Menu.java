@@ -7,7 +7,7 @@ package br.uefs.repository.view;
 
 import br.uefs.repository.controller.Controller;
 import br.uefs.repository.exceptions.ArquivoNaoEncontradoException;
-import br.uefs.repository.exceptions.CelulaNaoEncontradoException;
+import br.uefs.repository.exceptions.CelulaNaoEncontradaException;
 import br.uefs.repository.exceptions.NaoEhPastaException;
 import br.uefs.repository.exceptions.PastaNaoEncontradaException;
 import br.uefs.repository.exceptions.TipoNaoEncontradoException;
@@ -22,11 +22,12 @@ import java.util.logging.Logger;
  * @author Antonio
  */
 public class Menu {
-    public static void main(String[] args) throws IOException, ArquivoNaoEncontradoException, CelulaNaoEncontradoException {
+    public static void main(String[] args) throws IOException, ArquivoNaoEncontradoException, CelulaNaoEncontradaException {
         int opcao;
         boolean montado = false;
         Controller controller = new Controller();
         do{
+            System.out.println("\n \n");
             System.out.println("Sistema de Gerenciamento de Arquivos e Diretório");
             if(!montado){
                 System.out.println("1 - Montar Hieraquia de Arquivos e Diretorios");
@@ -59,14 +60,14 @@ public class Menu {
                         try {
                             controller.geraArvore(caminho);
                             montado = true;
-                            System.out.println("Repositório Montado!\n \n");
+                            System.out.println("Repositório Montado!");
                         } catch (NaoEhPastaException ex) {
                             System.out.println("O diretorio informado não é uma pasta!");
                         }catch (PastaNaoEncontradaException ex){
                             System.out.println("O diretorio informado não existe!");
                         }
                     }else{
-                        System.out.println("Opção invalida!\n \n");
+                        System.out.println("Opção invalida!");
                     }
                     break;
                 }
@@ -96,7 +97,7 @@ public class Menu {
                             System.out.println("Não é um Arquivo Válido!");
                         }   
                     }else{
-                        System.out.println("Opção invalida!\n \n");
+                        System.out.println("Opção invalida!");
                     }
                     break;
                 }
@@ -117,7 +118,7 @@ public class Menu {
                             System.out.println("Pasta não encontrada!");
                         }   
                     }else{
-                        System.out.println("Opção invalida!\n \n");
+                        System.out.println("Opção invalida!");
                     }
                     break;
                 }
@@ -138,7 +139,7 @@ public class Menu {
                             System.out.println("Tipo não encontrado!");
                         }   
                     }else{
-                        System.out.println("Opção invalida!\n \n");
+                        System.out.println("Opção invalida!");
                     }
                     break;
                 }
@@ -152,11 +153,14 @@ public class Menu {
                         String nome = Console.readString();
                         try {
                             controller.geraArquivo(diretorio, nome, nivel);
+                            System.out.println("Arquivo criado com Sucesso!");
                         } catch (PastaNaoEncontradaException ex) {
                             System.out.println("Pasta não encontrada!");
                         } catch (IOException e){
                             System.out.println("Não foi possível gerar o arquivo");
                         }
+                    }else{
+                        System.out.println("Opção invalida!");
                     }
                 }
             }

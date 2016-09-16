@@ -9,18 +9,18 @@ package br.uefs.repository.exceptions;
  *
  * @author Antonio
  */
-public class CelulaNaoEncontradoException extends Exception{
+public class CelulaNaoEncontradaException extends Exception{
     private static final long serialVersionUID = 1L;
 
-    public CelulaNaoEncontradoException() {
+    public CelulaNaoEncontradaException() {
         super();
     }
     
-    public CelulaNaoEncontradoException(String str){
+    public CelulaNaoEncontradaException(String str){
         super(str);
     }
     
-    public CelulaNaoEncontradoException(String str, Throwable motivo){
+    public CelulaNaoEncontradaException(String str, Throwable motivo){
         super(str, motivo);
     }
     

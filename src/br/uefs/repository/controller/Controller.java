@@ -6,7 +6,7 @@
 package br.uefs.repository.controller;
 
 import br.uefs.repository.exceptions.ArquivoNaoEncontradoException;
-import br.uefs.repository.exceptions.CelulaNaoEncontradoException;
+import br.uefs.repository.exceptions.CelulaNaoEncontradaException;
 import br.uefs.repository.exceptions.NaoEhPastaException;
 import br.uefs.repository.exceptions.PastaNaoEncontradaException;
 import br.uefs.repository.exceptions.TipoNaoEncontradoException;
@@ -29,12 +29,12 @@ public class Controller {
         arvoreRepositorio = new ArvoreGenerica();
     }
     
-    public void geraArvore (String str) throws CelulaNaoEncontradoException, NaoEhPastaException, PastaNaoEncontradaException{
+    public void geraArvore (String str) throws NaoEhPastaException, PastaNaoEncontradaException, CelulaNaoEncontradaException{
         File f = new File(str);
         if(f.exists()){
             int altura = 0;
-            arvoreRepositorio.addSon(str, null,altura);
-        
+            arvoreRepositorio.addSon(str, null,altura);    
+            
             if(f.isDirectory()){
                 altura++;
                 File[] vF= f.listFiles();
@@ -49,7 +49,7 @@ public class Controller {
         }
     }
     
-    private void adicionaFilho(File[] filhos, String pai, int altura) throws CelulaNaoEncontradoException{
+    private void adicionaFilho(File[] filhos, String pai, int altura) throws CelulaNaoEncontradaException{
         for(File file:filhos){
             if(file.isDirectory()){
                 arvoreRepositorio.addSon("\\"+file.getName(), pai, altura);
@@ -190,9 +190,11 @@ public class Controller {
         Elemento e = null;
         
         while(it.temProximo()){
-            e = (Elemento) it.obterProximo();
-            if(arvoreRepositorio.caminho(e).equals(diretorio))
+            Elemento aux = (Elemento) it.obterProximo();
+            if(arvoreRepositorio.caminho(aux).equals(diretorio)){
+                e = aux;
                 break;
+            }
         }
         if(e!=null){
             Iterador mapa = arvoreRepositorio.mapa(e);
@@ -218,7 +220,7 @@ public class Controller {
                     PrintWriter escrever = new PrintWriter(arq);
 
                     while(caminhos[i]!=null){
-                        escrever.printf("%s %n",caminhos[i]);
+                        escrever.printf("%s%n",caminhos[i]);
                         i++;
                     }
                     arq.close();

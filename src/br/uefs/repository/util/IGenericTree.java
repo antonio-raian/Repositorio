@@ -5,14 +5,14 @@
  */
 package br.uefs.repository.util;
 
-import br.uefs.repository.exceptions.CelulaNaoEncontradoException;
+import br.uefs.repository.exceptions.CelulaNaoEncontradaException;
 /**
  *
  * @author Antonio
  */
 public interface IGenericTree{
    
-    public void addSon(Object o, Object pai, int altura)throws CelulaNaoEncontradoException;
+    public void addSon(Object o, Object pai, int altura)throws CelulaNaoEncontradaException;
     public int size();
     public int height();
     public Iterador iterator();   

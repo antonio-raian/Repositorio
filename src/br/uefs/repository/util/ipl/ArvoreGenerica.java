@@ -5,7 +5,7 @@
  */
 package br.uefs.repository.util.ipl;
 
-import br.uefs.repository.exceptions.CelulaNaoEncontradoException;
+import br.uefs.repository.exceptions.CelulaNaoEncontradaException;
 import br.uefs.repository.util.Elemento;
 import br.uefs.repository.util.IGenericTree;
 import br.uefs.repository.util.Iterador;
@@ -21,7 +21,7 @@ public class ArvoreGenerica implements IGenericTree{
     private int height = 0;
    
     @Override
-    public void addSon(Object obj, Object pai, int altura) throws CelulaNaoEncontradoException{
+    public void addSon(Object obj, Object pai, int altura) throws CelulaNaoEncontradaException{
         CelulaArvore filho = new CelulaArvore(obj);
         if(pai==null){            
             filho.setIrmao(null);
@@ -31,7 +31,7 @@ public class ArvoreGenerica implements IGenericTree{
         }else{
             CelulaArvore aux = (CelulaArvore)encontra(pai,(altura-1));
             if(aux == null){
-                throw new CelulaNaoEncontradoException("error!");
+                throw new CelulaNaoEncontradaException("error!");
             }
             filho.setPai(aux);
             filho.setAltura(altura);
