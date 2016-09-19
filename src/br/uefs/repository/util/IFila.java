@@ -1,6 +1,5 @@
 package br.uefs.repository.util;
 
-
 public interface IFila {
   
     public boolean estaVazia();

@@ -1,3 +1,18 @@
+/**
+ * Componente Curricular: Módulo Integrado de Programação
+ * Autor: Antonio Raian e Milena Melo
+ * Data:  19/09/2016
+ *
+ * Declaro que este código foi elaborado em dupla e não contém nenhum trecho 
+ * de código de outro colega ou de outro autor, 
+ * tais como provindos de livros e apostilas, e páginas ou documentos 
+ * eletrônicos da Internet. Qualquer trecho de código de outra autoria que
+ * uma citação para o não a nossa está destacado com  autor e a fonte do
+ * código, e estou ciente que estes trechos não serão considerados para fins
+ * de avaliação. Alguns trechos do código podem coincidir com de outros
+ * colegas pois estes foram discutidos em sessões tutorias.
+ */
+
 package br.uefs.repository.testes;
 
 import br.uefs.repository.controller.Controller;
@@ -10,15 +25,19 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
+/**
+ * Através dessa classe, é feito todos os testes necessários para o melhor funcionamento do projeto criado.
+ * 
+ * @author Antonio Raian e Milena Melo
+ */
 public class Teste {
-    private Controller ctr;
+    private Controller ctr; // Chama o controller para verificação dos testes.
 
     @Before
-    public void setUp() {
+    public void setUp() {// Instancia o controller para a chamada das funções.
             ctr  = new Controller();
     }
-
+    // Testes fundamentais de cada função do projeto, sendo feita comparações de resultados esperados com os realemnte estão sendo expedidos.
     @Test
     public void testaCriacaoSucessoRepositorioExistente() throws CelulaNaoEncontradaException, NaoEhPastaException, PastaNaoEncontradaException{
         ctr.geraArvore("D:\\Documentos\\Repositorio");
