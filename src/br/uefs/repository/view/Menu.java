@@ -13,9 +13,6 @@ import br.uefs.repository.exceptions.PastaNaoEncontradaException;
 import br.uefs.repository.exceptions.TipoNaoEncontradoException;
 import br.uefs.repository.util.Console;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -55,7 +52,7 @@ public class Menu {
                 }
                 case 1:{
                     if(!montado){
-                        System.out.println("Insira o Caminho da Pasta para Montar Hierarquia");
+                        System.out.println("Insira o caminho da pasta para montar hierarquia");
                         String caminho = Console.readString();
                         try {
                             controller.geraArvore(caminho);
@@ -73,28 +70,21 @@ public class Menu {
                 }
                 case 2:{
                     if(montado){
-                        System.out.println("Insira o Nome do Arquivo: ");
+                        System.out.println("Insira o nome do arquivo: ");
                         String nome = Console.readString();
-                        System.out.println("Insira o Nível da Profundidade: ");
+                        System.out.println("Insira o nível da profundidade: ");
                         int nivel = Console.readInt();
                         try {
-                            if(nivel==0){
-                                String[] arv = controller.mostraArvore();
-                                for(String s:arv){
-                                    if(s != null)
-                                        System.out.print(s);
-                                }
-                            }else{
                                 String[] str = controller.buscaArquivo(nome, nivel);
-                                System.out.println("\nCaminho do Arquivo:");
+                                System.out.println("\nCaminho do arquivo:");
                                 int i = 0;
-                                while(str[i]!=null){
-                                    System.out.println(str[i]);
-                                    i++;
+                                for(String s:str){
+                                  if(s != null)
+                                    System.out.println(s);
                                 }
-                            }
+                            
                         } catch (ArquivoNaoEncontradoException ex) {
-                            System.out.println("Não é um Arquivo Válido!");
+                            System.out.println("Arquivo não encontrado!");
                         }   
                     }else{
                         System.out.println("Opção invalida!");
@@ -103,13 +93,13 @@ public class Menu {
                 }
                 case 3:{
                     if(montado){
-                        System.out.println("Insira o Nome do Arquivo: ");
+                        System.out.println("Insira o nome da pasta: ");
                         String nome = Console.readString();
-                        System.out.println("Insira o Nível da Profundidade: ");
+                        System.out.println("Insira o nível da profundidade: ");
                         int nivel = Console.readInt();
                         try {
                              String[] str = controller.buscaPasta(nome, nivel);
-                             System.out.println("\nCaminho da Pasta:");
+                             System.out.println("\nCaminho da pasta:");
                              for(String s:str){
                                 if(s != null)
                                     System.out.println(s);
@@ -124,13 +114,13 @@ public class Menu {
                 }
                  case 4:{
                     if(montado){
-                        System.out.println("Insira o Tipo do Aquivo");
+                        System.out.println("Insira o tipo do aquivo");
                         String tipo = Console.readString();
-                        System.out.println("Insira o Nível da Profundidade: ");
+                        System.out.println("Insira o nível da profundidade: ");
                         int nivel = Console.readInt();
                         try {
                              String[] str = controller.buscaTipo(tipo, nivel);
-                             System.out.println("\nCsminho da Pasta:");
+                             System.out.println("\nCsminho do(s) aruivo(s) por tipo:");
                              for(String s:str){
                                 if(s != null)
                                     System.out.println(s);
