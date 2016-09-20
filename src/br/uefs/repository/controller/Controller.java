@@ -22,7 +22,6 @@ package br.uefs.repository.controller;
  * @author Antonio Raian e Milena Melo
  */
 
-//Importação das classes utilizadas, incluindo os Exceptions a serem utilizadas nos métodos.
 import br.uefs.repository.exceptions.ArquivoNaoEncontradoException;
 import br.uefs.repository.exceptions.CelulaNaoEncontradaException;
 import br.uefs.repository.exceptions.NaoEhPastaException;
@@ -36,8 +35,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-// Inicialização da classe
-public class Controller {
+public class Controller {// Inicialização da classe
     private ArvoreGenerica arvoreRepositorio;
     
     public Controller() { //Construtor da classe Controller
@@ -50,29 +48,29 @@ public class Controller {
         File f = new File(str);
         if(f.exists()){ // Verifica se o caminho do diretório existe
             int altura = 0;
-            arvoreRepositorio.addSon(str, null,altura);    
+            String path = f.getAbsolutePath().replace("\\", "/");
+            arvoreRepositorio.addSon(path, null,altura);    
             
             if(f.isDirectory()){ // Verifica se o caminho é um diretório
                 altura++;
                 File[] vF= f.listFiles();
-                String pai = str;
+                String pai = path;
                 adicionaFilho(vF, pai, altura);
 
-            }else{ // Caso não seja diretório, o programa emite um "exception"
+            }else{ // Caso não seja diretório, o programa emite um erro
                 throw new NaoEhPastaException();
             }
-        }else{// Caso não seja encontrado o caminho do diretório, o programa emite um "exception"
+        }else{// Caso não seja encontrado o caminho do diretório, o programa emite um erro
             throw new PastaNaoEncontradaException();
         }
     }
-    // Método de auxílio para a construção da árvore.
-    // Mérodo utilizado de forma recursiva. 
+    // Método recursivo auxíliar para a construção da árvore.
     private void adicionaFilho(File[] filhos, String pai, int altura) throws CelulaNaoEncontradaException{
-        for(File file:filhos){
-            if(file.isDirectory()){
-                arvoreRepositorio.addSon("\\"+file.getName(), pai, altura);
+        for(File file:filhos){//laço para percorrer todos filhos de um diretorio pai
+            if(file.isDirectory()){//verifica se esse filho tbm é um diretorio
+                arvoreRepositorio.addSon("/"+file.getName(), pai, altura);
                 altura++;
-                String dad = "\\"+file.getName();
+                String dad = "/"+file.getName();
                 File[] aux = file.listFiles();
                 adicionaFilho(aux, dad, altura);
                 altura--;
@@ -81,7 +79,7 @@ public class Controller {
             }
         }
     }
-    // Método ao qual percorre toda árvore, imprimindo cada objeto contido nela.
+    // Método adicional que percorre toda árvore, imprimindo cada objeto contido nela.
     public String[] mostraArvore(){
         Iterador it = arvoreRepositorio.iterator();
         String[] str = new String[arvoreRepositorio.size()];
@@ -92,13 +90,11 @@ public class Controller {
         }
         return str;
     }
-    // Busca Arquivo procura o arquivo pelo nome deste, digitado pelo usuário.
-    // Além disso, o usuáio insere a profundidade de verificação dos elementos na árvore, para, desta forma,
-    // poder recuperar o arquivo de acordo o nível indicado.
+    // Busca Arquivo procura o arquivo pelo nome informado pelo usuário
+    // Além disso, o usuáio insere a profundidade de verificação dos elementos na árvore, para poder recuperar o arquivo de acordo o nível indicado.
     // Este método retorna o caminho do arquivo desejado.
     public String[] buscaArquivo(String nome, int nivel) throws ArquivoNaoEncontradoException{
         Iterador it = arvoreRepositorio.iterator();//Iterador para percorrer toda a arvore 
-        String[] string = new String[arvoreRepositorio.size()];
         Elemento[] aux = new Elemento[arvoreRepositorio.size()];
         int i = 0;
         if(nivel==0 || nivel>=arvoreRepositorio.height()){ // Se o nível for 0, o iterador irá percorrer de forma 
@@ -113,12 +109,13 @@ public class Controller {
         }else{
             while(it.temProximo()){
                 Elemento e = (Elemento)it.obterProximo();
-                if(e.getObj().equals(nome)&& e.getAltura()<=nivel){
+                if(e.getObj().equals(nome)&& e.getAltura()==nivel){
                     aux[i] = e;
                     i++;
                 }
             }
         }
+        String[] string = new String[i]; //Cria um array do tamanho da quantidade de arquivos encontrados
         if(aux[0]!=null){
             i=0;
             while(aux[i]!=null){// O array preenchido é enviado para árvoreRepositório no intuito de pegar os pais 
@@ -138,14 +135,13 @@ public class Controller {
     // Este método retorna o caminho da pasta desejada. 
     public String[] buscaPasta(String nome, int nivel) throws PastaNaoEncontradaException{
         Iterador it = arvoreRepositorio.iterator();//Iterador para percorrer toda a arvore 
-        String[] string = new String[arvoreRepositorio.size()];// Inicialização dos arrays com o tamnho total que possuem
         Elemento[] aux = new Elemento[arvoreRepositorio.size()];
         int i = 0;
         // Percorre a árvore guardando os dados necessários para a composição do caminho, quando encontrado o diretório.
         if(nivel==0 || nivel>=arvoreRepositorio.height()){
             while(it.temProximo()){
                 Elemento e = (Elemento)it.obterProximo();
-                if(e.getObj().equals("\\"+nome)){
+                if(e.getObj().equals("/"+nome)){
                     aux[i] = e;
                     i++;
                 }
@@ -153,13 +149,15 @@ public class Controller {
         }else{
             while(it.temProximo()){
                 Elemento e = (Elemento)it.obterProximo();
-                if(e.getObj().equals("\\"+nome)&& e.getAltura()<=nivel){// É inserido duas barras para diferenciar pastas de arquivos
+                if(e.getObj().equals("/"+nome)&& e.getAltura()==nivel){// É inserido duas barras para diferenciar pastas de arquivos
                                                                         // no momento da geração da árvore                                         
                     aux[i] = e;
                     i++;
                 }
             }
         }
+        
+        String[] string = new String[i]; //Cria um array do tamanho da quantidade de pastas encontradas
         if(aux[0]!=null){
             i=0;
             while(aux[i]!=null){
@@ -178,13 +176,12 @@ public class Controller {
     // Este método retorna o caminho dos arquivos com o tipo de extensão desejada. 
     public String[] buscaTipo(String tipo, int nivel) throws TipoNaoEncontradoException{
         Iterador it = arvoreRepositorio.iterator();// Iterador para percorrer toda a arvore 
-        String[] string = new String[arvoreRepositorio.size()];
         Elemento[] aux = new Elemento[arvoreRepositorio.size()];
         int i = 0;
         if(nivel==0 || nivel>=arvoreRepositorio.height()){
             while(it.temProximo()){
                 Elemento e = (Elemento)it.obterProximo();
-                if(!e.getObj().toString().startsWith("\\"))// Este método verifica se o elemnto inicia com os caracteres inseridos como parâmetro
+                if(!e.getObj().toString().startsWith("/"))// Este método verifica se o elemnto inicia com os caracteres inseridos como parâmetro
                     if(e.getObj().toString().contains("."+tipo)){// Logo depois, verifica se contém o ponto, tendo como parâmetro de distinção 
                                                                  // de tipo para outros tipos de arquivo ou pastas.
                         aux[i] = e;
@@ -194,7 +191,7 @@ public class Controller {
         }else{
             while(it.temProximo()){
                 Elemento e = (Elemento)it.obterProximo();
-                if(!e.getObj().toString().startsWith("\\"))// Caso inicie com "\\" e contenha o "." precedido do tipo da extensão do arquivo,
+                if(!e.getObj().toString().startsWith("/"))// Caso inicie com "\" e contenha o "." precedido do tipo da extensão do arquivo,
                                                            // é igualado e verificado a profundidade para ser posto no array auxiliar.
                     if(e.getObj().toString().contains("."+tipo)&& e.getAltura()==nivel){
                         aux[i] = e;
@@ -202,6 +199,7 @@ public class Controller {
                     }
             }
         }
+        String[] string = new String[i]; //Cria um array com o tamanho da quantidade de elementos encontrados
         if(aux[0]!=null){
             i=0;
             while(aux[i]!=null){// Insere no array ao qual envia como parâmetro para ordenação do array de caminho final do elementos
@@ -224,55 +222,54 @@ public class Controller {
         String [] caminhos = new String[arvoreRepositorio.size()];
         Iterador it = arvoreRepositorio.iterator();
         Elemento e = null;
-        // É feito a verificação dos caminhos no diretório informado, para que estes pertençam a pasta inserida pelo usuário.
-        while(it.temProximo()){
+        while(it.temProximo()){ //Laço pra verificar se o diretorio informado está na arvore
             Elemento aux = (Elemento) it.obterProximo();
             if(arvoreRepositorio.caminho(aux).equals(diretorio)){
-                e = aux;
+                e = aux;//pega o elemento da arvore
                 break;
             }
         }
         if(e!=null){
-            Iterador mapa = arvoreRepositorio.mapa(e);
+            Iterador mapa = arvoreRepositorio.mapa(e); //Iterador criado a partir do elemento encontrado
             Elemento aux, primeiro;
             int i = 0;
-            primeiro = (Elemento) mapa.obterProximo();
-            while(mapa.temProximo()){
+            primeiro = (Elemento) mapa.obterProximo(); //elemento usado pra saber a altura inicial
+            while(mapa.temProximo()){ //laço pra escrita de todos os caminhos abaixo do elemento informado
                 aux = (Elemento) mapa.obterProximo();
-                if(nivel==0 || nivel>=arvoreRepositorio.size()){
-                    caminhos[i] = arvoreRepositorio.caminho(aux);
+                if(nivel==0 || nivel>=arvoreRepositorio.height()){//Se o nivel informado for 0 ou maior que a altura máxima da arvore
+                    caminhos[i] = arvoreRepositorio.caminho(aux);//armazena num array todos os caminhos
                     i++;
-                }else if(aux.getAltura()<=(nivel+primeiro.getAltura())){
+                }else if(aux.getAltura()<=(nivel+primeiro.getAltura())){//Se o objeto estiver entre a altura máxima e acima do nível do objeto informado
                     caminhos[i] = arvoreRepositorio.caminho(aux);
                     i++;
                 }
             }
 
             i=0;
-            File f = new File(arquivo);
-            if(f.exists()){
-                if(f.canWrite()){
-                    FileWriter arq = new FileWriter(f);
-                    PrintWriter escrever = new PrintWriter(arq);
+            File f = new File(arquivo);//Referencia pro arquivo informado
+            if(f.exists()){//Se existir
+                if(f.canWrite()){ //Tenta a leitura
+                    FileWriter arq = new FileWriter(f); //Objeto criado para a leitura do arquivo
+                    PrintWriter escrever = new PrintWriter(arq); ////Objeto criado para a escrita no arquivo
 
-                    while(caminhos[i]!=null){
+                    while(caminhos[i]!=null){//laço para imprimir todos os caminhos no arquivo
                         escrever.printf("%s%n",caminhos[i]);
                         i++;
                     }
-                    arq.close();
+                    arq.close();//Fechamento do arquivo
                 }
-            }else{
-                f.createNewFile();
+            }else{//Se não existir
+                f.createNewFile(); //o Arquivo é criado
                 FileWriter arq = new FileWriter(f);
                 PrintWriter escrever = new PrintWriter(arq);
 
                 while(caminhos[i]!=null){
-                    escrever.printf("%s %n",caminhos[i]);
+                    escrever.printf("%s%n",caminhos[i]);
                     i++;
                 }
                 arq.close();
             }
-        }else{
+        }else{//Caso o diretorio da pasta não esteja na arvore é lançada o erro: Pas não encontrada
             throw new PastaNaoEncontradaException();
         }
         

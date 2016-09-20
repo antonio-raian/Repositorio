@@ -84,10 +84,10 @@ public class ArvoreGenerica implements IGenericTree{
         }
         // Enquanto estiver no laço, os caminhos vão sendo concatenados a partir da pilha criada.
         while(!pilhaCaminho.estaVazia()){
-            if(pilhaCaminho.recuperarTopo().toString().contains("\\")){
+            if(pilhaCaminho.recuperarTopo().toString().contains("/")){
                 str+=pilhaCaminho.removerTopo().toString();
             }else{
-                str+="\\"+pilhaCaminho.removerTopo().toString();
+                str+="/"+pilhaCaminho.removerTopo().toString();
             }
         }
         return str;
