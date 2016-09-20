@@ -2,7 +2,7 @@
 
 <ClassDiagram name="Repositorio">
   <ClassDiagramComponents>
-    <Class name="Controller" package="br.uefs.repository.controller" visibility="public" xPosition="20.0" yPosition="20.0">
+    <Class name="Controller" package="br.uefs.repository.controller" visibility="public" xPosition="352.0" yPosition="233.0">
       <Fields>
         <Field name="arvoreRepositorio" type="ArvoreGenerica" visibility="private"/>
       </Fields>
@@ -38,7 +38,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="ArquivoNaoEncontradoException" package="br.uefs.repository.exceptions" visibility="public" xPosition="320.0" yPosition="20.0">
+    <Class name="ArquivoNaoEncontradoException" package="br.uefs.repository.exceptions" visibility="public" xPosition="20.0" yPosition="20.0">
       <Fields>
         <Field name="serialVersionUID" type="long" visibility="private" isStatic="true" isFinal="true"/>
       </Fields>
@@ -54,7 +54,7 @@
       </Constructors>
       <Methods/>
     </Class>
-    <Class name="CelulaNaoEncontradaException" package="br.uefs.repository.exceptions" visibility="public" xPosition="620.0" yPosition="20.0">
+    <Class name="CelulaNaoEncontradaException" package="br.uefs.repository.exceptions" visibility="public" xPosition="393.0" yPosition="20.0">
       <Fields>
         <Field name="serialVersionUID" type="long" visibility="private" isStatic="true" isFinal="true"/>
       </Fields>
@@ -70,7 +70,7 @@
       </Constructors>
       <Methods/>
     </Class>
-    <Class name="NaoEhPastaException" package="br.uefs.repository.exceptions" visibility="public" xPosition="920.0" yPosition="20.0">
+    <Class name="NaoEhPastaException" package="br.uefs.repository.exceptions" visibility="public" xPosition="762.0" yPosition="20.0">
       <Fields>
         <Field name="serialVersionUID" type="long" visibility="private" isStatic="true" isFinal="true"/>
       </Fields>
@@ -86,7 +86,7 @@
       </Constructors>
       <Methods/>
     </Class>
-    <Class name="PastaNaoEncontradaException" package="br.uefs.repository.exceptions" visibility="public" xPosition="1220.0" yPosition="20.0">
+    <Class name="PastaNaoEncontradaException" package="br.uefs.repository.exceptions" visibility="public" xPosition="1079.0" yPosition="20.0">
       <Fields>
         <Field name="serialVersionUID" type="long" visibility="private" isStatic="true" isFinal="true"/>
       </Fields>
@@ -102,7 +102,7 @@
       </Constructors>
       <Methods/>
     </Class>
-    <Class name="TipoNaoEncontradoException" package="br.uefs.repository.exceptions" visibility="public" xPosition="1520.0" yPosition="20.0">
+    <Class name="TipoNaoEncontradoException" package="br.uefs.repository.exceptions" visibility="public" xPosition="1441.0" yPosition="20.0">
       <Fields>
         <Field name="serialVersionUID" type="long" visibility="private" isStatic="true" isFinal="true"/>
       </Fields>
@@ -118,88 +118,7 @@
       </Constructors>
       <Methods/>
     </Class>
-    <Class name="Console" package="br.uefs.repository.util" visibility="public" xPosition="1820.0" yPosition="20.0">
-      <Fields>
-        <Field name="br" type="BufferedReader" visibility="private" isStatic="true"/>
-      </Fields>
-      <Constructors/>
-      <Methods>
-        <Method name="readString" returnType="String" visibility="public" isStatic="true"/>
-        <Method name="readChar" returnType="char" visibility="public" isStatic="true"/>
-        <Method name="readCharArray" returnType="char[]" visibility="public" isStatic="true"/>
-        <Method name="readShort" returnType="short" visibility="public" isStatic="true"/>
-        <Method name="readInt" returnType="int" visibility="public" isStatic="true"/>
-        <Method name="readLong" returnType="long" visibility="public" isStatic="true"/>
-        <Method name="readFloat" returnType="float" visibility="public" isStatic="true"/>
-        <Method name="readDouble" returnType="double" visibility="public" isStatic="true"/>
-      </Methods>
-    </Class>
-    <Interface name="Elemento" package="br.uefs.repository.util" visibility="public" xPosition="2120.0" yPosition="20.0">
-      <Methods>
-        <Method name="getObj" returnType="Object" visibility="public"/>
-        <Method name="getAltura" returnType="int" visibility="public"/>
-      </Methods>
-    </Interface>
-    <Interface name="IFila" package="br.uefs.repository.util" visibility="public" xPosition="20.0" yPosition="420.0">
-      <Methods>
-        <Method name="estaVazia" returnType="boolean" visibility="public"/>
-        <Method name="obterTamanho" returnType="int" visibility="public"/>
-        <Method name="inserirFinal" returnType="void" visibility="public">
-          <Argument type="Object" name="o"/>
-        </Method>
-        <Method name="removerInicio" returnType="Object" visibility="public"/>
-        <Method name="recuperarInicio" returnType="Object" visibility="public"/>
-      </Methods>
-    </Interface>
-    <Interface name="IGenericTree" package="br.uefs.repository.util" visibility="public" xPosition="320.0" yPosition="420.0">
-      <Methods>
-        <Method name="addSon" returnType="void" visibility="public">
-          <Argument type="Object" name="o"/>
-          <Argument type="Object" name="pai"/>
-          <Argument type="int" name="altura"/>
-        </Method>
-        <Method name="size" returnType="int" visibility="public"/>
-        <Method name="height" returnType="int" visibility="public"/>
-        <Method name="iterator" returnType="Iterador" visibility="public"/>
-      </Methods>
-    </Interface>
-    <Interface name="ILista" package="br.uefs.repository.util" visibility="public" xPosition="620.0" yPosition="420.0">
-      <Methods>
-        <Method name="estaVazia" returnType="boolean" visibility="public"/>
-        <Method name="obterTamanho" returnType="int" visibility="public"/>
-        <Method name="inserirInicio" returnType="void" visibility="public">
-          <Argument type="Object" name="o"/>
-        </Method>
-        <Method name="inserirFinal" returnType="void" visibility="public">
-          <Argument type="Object" name="o"/>
-        </Method>
-        <Method name="inserir" returnType="void" visibility="public">
-          <Argument type="Object" name="o"/>
-          <Argument type="int" name="index"/>
-        </Method>
-        <Method name="removerInicio" returnType="Object" visibility="public"/>
-        <Method name="removerFinal" returnType="Object" visibility="public"/>
-        <Method name="remover" returnType="Object" visibility="public">
-          <Argument type="int" name="index"/>
-        </Method>
-        <Method name="recuperar" returnType="Object" visibility="public">
-          <Argument type="int" name="index"/>
-        </Method>
-        <Method name="iterador" returnType="Iterador" visibility="public"/>
-      </Methods>
-    </Interface>
-    <Interface name="IPilha" package="br.uefs.repository.util" visibility="public" xPosition="920.0" yPosition="420.0">
-      <Methods>
-        <Method name="obterTamanho" returnType="int" visibility="public"/>
-        <Method name="estaVazia" returnType="boolean" visibility="public"/>
-        <Method name="removerTopo" returnType="Object" visibility="public"/>
-        <Method name="inserirTopo" returnType="void" visibility="public">
-          <Argument type="Object" name="obj"/>
-        </Method>
-        <Method name="recuperarTopo" returnType="Object" visibility="public"/>
-      </Methods>
-    </Interface>
-    <Class name="ArvoreGenerica" package="br.uefs.repository.util.ipl" visibility="public" xPosition="1220.0" yPosition="420.0">
+    <Class name="ArvoreGenerica" package="br.uefs.repository.util.ipl" visibility="public" xPosition="383.0" yPosition="519.0">
       <Fields>
         <Field name="root" type="CelulaArvore" visibility="private"/>
         <Field name="tam" type="int" visibility="private"/>
@@ -227,7 +146,7 @@
         <Method name="height" returnType="int" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Celula" package="br.uefs.repository.util.ipl" visibility="public" xPosition="1520.0" yPosition="420.0">
+    <Class name="Celula" package="br.uefs.repository.util.ipl" visibility="public" xPosition="1289.0" yPosition="246.0">
       <Fields>
         <Field name="obj" type="Object" visibility="private"/>
         <Field name="prox" type="Celula" visibility="private"/>
@@ -251,7 +170,7 @@
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="CelulaArvore" package="br.uefs.repository.util.ipl" visibility="public" xPosition="1820.0" yPosition="420.0">
+    <Class name="CelulaArvore" package="br.uefs.repository.util.ipl" visibility="public" xPosition="37.0" yPosition="383.0">
       <Fields>
         <Field name="obj" type="Object" visibility="private"/>
         <Field name="pai" type="CelulaArvore" visibility="private"/>
@@ -291,7 +210,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Fila" package="br.uefs.repository.util.ipl" visibility="public" xPosition="2120.0" yPosition="420.0">
+    <Class name="Fila" package="br.uefs.repository.util.ipl" visibility="public" xPosition="1267.0" yPosition="855.0">
       <Fields>
         <Field name="primeiro" type="Celula" visibility="private"/>
         <Field name="tam" type="int" visibility="private"/>
@@ -309,7 +228,7 @@
         <Method name="recuperarInicio" returnType="Object" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="IteradorArvore" package="br.uefs.repository.util.ipl" visibility="public" xPosition="20.0" yPosition="820.0">
+    <Class name="IteradorArvore" package="br.uefs.repository.util.ipl" visibility="public" xPosition="383.0" yPosition="912.0">
       <Fields>
         <Field name="filaArvore" type="Fila" visibility="private"/>
       </Fields>
@@ -324,7 +243,7 @@
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Pilha" package="br.uefs.repository.util.ipl" visibility="public" xPosition="320.0" yPosition="820.0">
+    <Class name="Pilha" package="br.uefs.repository.util.ipl" visibility="public" xPosition="1563.0" yPosition="240.0">
       <Fields>
         <Field name="topo" type="Celula" visibility="private"/>
         <Field name="tam" type="int" visibility="private"/>
@@ -340,13 +259,7 @@
         <Method name="recuperarTopo" returnType="Object" visibility="public"/>
       </Methods>
     </Class>
-    <Interface name="Iterador" package="br.uefs.repository.util" visibility="public" xPosition="620.0" yPosition="820.0">
-      <Methods>
-        <Method name="temProximo" returnType="boolean" visibility="public"/>
-        <Method name="obterProximo" returnType="Object" visibility="public"/>
-      </Methods>
-    </Interface>
-    <Class name="Menu" package="br.uefs.repository.view" visibility="public" xPosition="920.0" yPosition="820.0">
+    <Class name="Menu" package="br.uefs.repository.view" visibility="public" xPosition="51.0" yPosition="233.0">
       <Fields/>
       <Constructors/>
       <Methods>
@@ -355,29 +268,100 @@
         </Method>
       </Methods>
     </Class>
+    <Interface name="Elemento" package="br.uefs.repository.util" visibility="public" xPosition="68.0" yPosition="946.0">
+      <Methods>
+        <Method name="getObj" returnType="Object" visibility="public"/>
+        <Method name="getAltura" returnType="int" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Interface name="IFila" package="br.uefs.repository.util" visibility="public" xPosition="1585.0" yPosition="855.0">
+      <Methods>
+        <Method name="estaVazia" returnType="boolean" visibility="public"/>
+        <Method name="obterTamanho" returnType="int" visibility="public"/>
+        <Method name="inserirFinal" returnType="void" visibility="public">
+          <Argument type="Object" name="o"/>
+        </Method>
+        <Method name="removerInicio" returnType="Object" visibility="public"/>
+        <Method name="recuperarInicio" returnType="Object" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Interface name="IGenericTree" package="br.uefs.repository.util" visibility="public" xPosition="748.0" yPosition="308.0">
+      <Methods>
+        <Method name="addSon" returnType="void" visibility="public">
+          <Argument type="Object" name="o"/>
+          <Argument type="Object" name="pai"/>
+          <Argument type="int" name="altura"/>
+        </Method>
+        <Method name="size" returnType="int" visibility="public"/>
+        <Method name="height" returnType="int" visibility="public"/>
+        <Method name="iterator" returnType="Iterador" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Interface name="ILista" package="br.uefs.repository.util" visibility="public" xPosition="1039.0" yPosition="502.0">
+      <Methods>
+        <Method name="estaVazia" returnType="boolean" visibility="public"/>
+        <Method name="obterTamanho" returnType="int" visibility="public"/>
+        <Method name="inserirInicio" returnType="void" visibility="public">
+          <Argument type="Object" name="o"/>
+        </Method>
+        <Method name="inserirFinal" returnType="void" visibility="public">
+          <Argument type="Object" name="o"/>
+        </Method>
+        <Method name="inserir" returnType="void" visibility="public">
+          <Argument type="Object" name="o"/>
+          <Argument type="int" name="index"/>
+        </Method>
+        <Method name="removerInicio" returnType="Object" visibility="public"/>
+        <Method name="removerFinal" returnType="Object" visibility="public"/>
+        <Method name="remover" returnType="Object" visibility="public">
+          <Argument type="int" name="index"/>
+        </Method>
+        <Method name="recuperar" returnType="Object" visibility="public">
+          <Argument type="int" name="index"/>
+        </Method>
+        <Method name="iterador" returnType="Iterador" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Interface name="IPilha" package="br.uefs.repository.util" visibility="public" xPosition="1574.0" yPosition="635.0">
+      <Methods>
+        <Method name="obterTamanho" returnType="int" visibility="public"/>
+        <Method name="estaVazia" returnType="boolean" visibility="public"/>
+        <Method name="removerTopo" returnType="Object" visibility="public"/>
+        <Method name="inserirTopo" returnType="void" visibility="public">
+          <Argument type="Object" name="obj"/>
+        </Method>
+        <Method name="recuperarTopo" returnType="Object" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Interface name="Iterador" package="br.uefs.repository.util" visibility="public" xPosition="803.0" yPosition="635.0">
+      <Methods>
+        <Method name="temProximo" returnType="boolean" visibility="public"/>
+        <Method name="obterProximo" returnType="Object" visibility="public"/>
+      </Methods>
+    </Interface>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="br.uefs.repository.util.ipl.Fila" target="br.uefs.repository.util.IFila"/>
-    <HasRelation name="ant" source="br.uefs.repository.util.ipl.Celula" target="br.uefs.repository.util.ipl.Celula" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="br.uefs.repository.util.ipl.Pilha" target="br.uefs.repository.util.IPilha"/>
-    <UseRelation source="br.uefs.repository.util.ipl.Celula" target="br.uefs.repository.util.ipl.Celula" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="br.uefs.repository.util.ipl.CelulaArvore" target="br.uefs.repository.util.ipl.CelulaArvore" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="br.uefs.repository.util.ipl.IteradorArvore" target="br.uefs.repository.util.Iterador"/>
-    <HasRelation name="topo" source="br.uefs.repository.util.ipl.Pilha" target="br.uefs.repository.util.ipl.Celula" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="irmao" source="br.uefs.repository.util.ipl.CelulaArvore" target="br.uefs.repository.util.ipl.CelulaArvore" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="br.uefs.repository.util.ILista" target="br.uefs.repository.util.Iterador" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="br.uefs.repository.util.ipl.ArvoreGenerica" target="br.uefs.repository.util.Iterador" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="br.uefs.repository.util.ipl.IteradorArvore" target="br.uefs.repository.util.Elemento" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="br.uefs.repository.util.ipl.ArvoreGenerica" target="br.uefs.repository.util.Elemento" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="arvoreRepositorio" source="br.uefs.repository.controller.Controller" target="br.uefs.repository.util.ipl.ArvoreGenerica" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="br.uefs.repository.util.ipl.ArvoreGenerica" target="br.uefs.repository.util.IGenericTree"/>
+    <UseRelation source="br.uefs.repository.util.IGenericTree" target="br.uefs.repository.util.Iterador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="br.uefs.repository.util.ipl.Pilha" target="br.uefs.repository.util.IPilha"/>
+    <UseRelation source="br.uefs.repository.util.ipl.CelulaArvore" target="br.uefs.repository.util.ipl.CelulaArvore" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="pai" source="br.uefs.repository.util.ipl.CelulaArvore" target="br.uefs.repository.util.ipl.CelulaArvore" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="root" source="br.uefs.repository.util.ipl.ArvoreGenerica" target="br.uefs.repository.util.ipl.CelulaArvore" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="filho" source="br.uefs.repository.util.ipl.CelulaArvore" target="br.uefs.repository.util.ipl.CelulaArvore" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="primeiro" source="br.uefs.repository.util.ipl.Fila" target="br.uefs.repository.util.ipl.Celula" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="br.uefs.repository.util.ILista" target="br.uefs.repository.util.Iterador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="br.uefs.repository.util.ipl.IteradorArvore" target="br.uefs.repository.util.Iterador"/>
+    <HasRelation name="ant" source="br.uefs.repository.util.ipl.Celula" target="br.uefs.repository.util.ipl.Celula" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="br.uefs.repository.util.ipl.Fila" target="br.uefs.repository.util.IFila"/>
+    <HasRelation name="topo" source="br.uefs.repository.util.ipl.Pilha" target="br.uefs.repository.util.ipl.Celula" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="br.uefs.repository.util.ipl.CelulaArvore" target="br.uefs.repository.util.Elemento"/>
     <HasRelation name="filaArvore" source="br.uefs.repository.util.ipl.IteradorArvore" target="br.uefs.repository.util.ipl.Fila" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="br.uefs.repository.util.IGenericTree" target="br.uefs.repository.util.Iterador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="filho" source="br.uefs.repository.util.ipl.CelulaArvore" target="br.uefs.repository.util.ipl.CelulaArvore" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="prox" source="br.uefs.repository.util.ipl.Celula" target="br.uefs.repository.util.ipl.Celula" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="br.uefs.repository.util.ipl.ArvoreGenerica" target="br.uefs.repository.util.IGenericTree"/>
+    <UseRelation source="br.uefs.repository.util.ipl.ArvoreGenerica" target="br.uefs.repository.util.Elemento" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="br.uefs.repository.util.ipl.IteradorArvore" target="br.uefs.repository.util.Elemento" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="arvoreRepositorio" source="br.uefs.repository.controller.Controller" target="br.uefs.repository.util.ipl.ArvoreGenerica" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="root" source="br.uefs.repository.util.ipl.ArvoreGenerica" target="br.uefs.repository.util.ipl.CelulaArvore" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="primeiro" source="br.uefs.repository.util.ipl.Fila" target="br.uefs.repository.util.ipl.Celula" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="irmao" source="br.uefs.repository.util.ipl.CelulaArvore" target="br.uefs.repository.util.ipl.CelulaArvore" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="br.uefs.repository.util.ipl.Celula" target="br.uefs.repository.util.ipl.Celula" sourceCardinality="1..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>
